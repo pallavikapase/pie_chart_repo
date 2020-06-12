@@ -1,0 +1,39 @@
+{% extends 'agent_sales/base.html' %}
+{% load static %}
+{% block body_block %}
+<div class="container">
+  <div id="container" style="width: 75%;">
+    <canvas id="pie-chart"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+
+    var config = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          backgroundColor: [
+            '#e88d5f', '#bf391b', '#8cbf1f', '#44c7aa', '#D3D3D3'
+          ],
+          label: 'count'
+        }],
+        labels: {{ labels|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('pie-chart').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+
+  </script>
+
+
+</div>
+
+{% endblock %}
